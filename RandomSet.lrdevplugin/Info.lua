@@ -10,8 +10,8 @@ return {
     },
     VERSION = {
         major = 0,
-        minor = 1,
+        minor = 2,
         revision = 0,
-        display = "0.1.01"
+        display = "0.2.00"
     }
 }
