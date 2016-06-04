@@ -1,9 +1,5 @@
 local LrApplication = import 'LrApplication'
 local LrTasks = import 'LrTasks'
-local LrLogger = import 'LrLogger'
-
-local myLogger = LrLogger('libraryLogger')
-myLogger:enable('print')
 
 local activeCatalog = LrApplication:activeCatalog()
 
@@ -11,7 +7,7 @@ LrTasks.startAsyncTask(function()
     activeCatalog:withWriteAccessDo(
         'Create Random Set',
         function()
-                
+            
             local randomSet = activeCatalog:createCollectionSet('Random Set', nil, true)
             local randomCollection = activeCatalog:createCollection(os.date('%Y-%m-%d %H-%M-%S'), randomSet, true)
                 
@@ -26,7 +22,6 @@ end
             for i = 1, 50, 1
             do
                     index = math.random(1, Count)
-                    myLogger:trace(index)
                 randomCollection:addPhotos({allPhotos[index]})
             end
                 
