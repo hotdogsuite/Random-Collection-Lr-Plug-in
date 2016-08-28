@@ -2,8 +2,8 @@ local LrApplication = import 'LrApplication'
 local LrTasks = import 'LrTasks'
 --local LrLogger = import 'LrLogger'
 
---local logger = LrLogger('randomset')
---logger:enable('print')
+local logger = LrLogger('randomset')
+logger:enable('print')
 
 local activeCatalog = LrApplication:activeCatalog()
 
@@ -12,19 +12,24 @@ LrTasks.startAsyncTask(function()
 			'Create Random Set',
 			function()
 				
+
+
 				local randomSet = activeCatalog:createCollectionSet('Random Set', nil, true)
 				local randomCollection = activeCatalog:createCollection(os.date('%Y-%m-%d %H-%M-%S'), randomSet, true)
-				
-				local allPhotos = activeCatalog:getAllPhotos()
-				
+
 				--[[
-				Count photos for constraints on random number generator.
-				I could probably do this more efficiently but it seems to run
-				fine with 93,000 photos in a catalog, so ¯\_(ツ)_/¯.
-				--]]
+				Add all photos from active sources to a table,
+				counting while we go.
+				--]]				
+				local activeSources = activeCatalog:getActiveSources()
 				local photoCount = 0
-				for Index, Value in pairs(allPhotos) do
-					photoCount = photoCount + 1
+				local allPhotos = {}
+				for i, source in pairs(activeSources) do
+					local sourcePhotos = source:getPhotos()
+					for j, photo in pairs(sourcePhotos) do
+						photoCount = photoCount + 1
+						allPhotos[photoCount] = photo
+					end
 				end
 				
 				--[[
