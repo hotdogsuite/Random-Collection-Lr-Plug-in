@@ -1,9 +1,5 @@
 local LrApplication = import 'LrApplication'
 local LrTasks = import 'LrTasks'
---local LrLogger = import 'LrLogger'
-
-local logger = LrLogger('randomset')
-logger:enable('print')
 
 local activeCatalog = LrApplication:activeCatalog()
 
@@ -12,8 +8,6 @@ LrTasks.startAsyncTask(function()
 			'Create Random Set',
 			function()
 				
-
-
 				local randomSet = activeCatalog:createCollectionSet('Random Set', nil, true)
 				local randomCollection = activeCatalog:createCollection(os.date('%Y-%m-%d %H-%M-%S'), randomSet, true)
 
@@ -45,7 +39,6 @@ LrTasks.startAsyncTask(function()
 					if set[index] == nil then
 						set[index] = allPhotos[index]
 						setCount = setCount + 1
-						--logger:tracef('Photo #%i with index %i added to set.', setCount, index)
 					end
 				end
 				for i, v in pairs(set) do
